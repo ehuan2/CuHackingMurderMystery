@@ -19,7 +19,7 @@ class Data:
                 self.people[self.dataset[x]["guest-id"]].append(info)
 
         for k in self.dataset.copy().keys():
-            if self.dataset[k]["device-id"] == "stairwell":
+            if self.dataset[k]["device-id"] == "stairwell" or self.dataset[k]["device-id"] == "reception":
                 del(self.dataset[k])
 
     def log(self, name):
