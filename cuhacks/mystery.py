@@ -1,30 +1,29 @@
 import json
 import time
 
+with open("MurderMysteryData.json", "r") as f:
+    dataset = json.load(f)
+    numPeople = [""]
 
-class Data:
-    def __init__(self):
-        self.dataset = {}
-        with open("murder-data.json", "r") as f:
-            self.dataset = json.load(f)
+people = {}
+for x in dataset:
+    if dataset[x]["guest-id"] in people.keys():
+        info = dataset[x]
+        info['time'] = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(int(x)))
+        people[dataset[x]["guest-id"]].append(info)
+    else:
+        people[dataset[x]["guest-id"]] = []
+        info = dataset[x]
+        info['time'] = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(int(x)))
+        people[dataset[x]["guest-id"]].append(info)
 
-        self.people = {}
-        for x in self.dataset:
-            if self.dataset[x]["guest-id"] in self.people.keys():
-                info = self.dataset[x]
-                info['time'] = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(int(x)))
-                self.people[self.dataset[x]["guest-id"]].append(info)
-            else:
-                self.people[self.dataset[x]["guest-id"]] = []
-                info = self.dataset[x]
-                info['time'] = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(int(x)))
-                self.people[self.dataset[x]["guest-id"]].append(info)
 
-    def log(self, name):
-        if name in self.people.keys():
-            print("Name: ", name)
-            for d in self.people[name]:
-                print("Accessed", d['device'], d['device-id'], "at", d['time'] + ',', d["event"])
+def log(name):
+    if name in people.keys():
+        print("Name: ", name)
+        for dict in people[name]:
+            print("Accessed", dict['device'], dict['device-id'], "at", dict['time'] + ',',  dict["event"])
 
-fuck = Data()
-print([time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(int(x))) for x in fuck.dataset.keys()])
+# print(people)
+for name in people.keys():
+    log(name)
