@@ -35,6 +35,7 @@ class App(QWidget):
         self.peopleplaces = {}
         self.latestplaces = {}
         self.advance = QPushButton(self)
+        self.goback = QPushButton(self)
         self.mySlider = QSlider(Qt.Horizontal, self)
         self.initUI()
 
@@ -93,13 +94,16 @@ class App(QWidget):
         self.events.itemSelectionChanged.connect(self.clickitem)
         self.namelabel.move(30, 670)
         self.namelabel.resize(500, 70)
-        self.namelabel.setStyleSheet("font: 18pt Arial")
+        self.namelabel.setStyleSheet("font: 14pt Arial")
         self.namelabel.show()
         self.namelabel.raise_()
         self.changeValue(0)
-        self.advance.move(50, 850)
-        self.advance.resize(100, 50)
-        self.advance.setText("+ 15 min")
+        self.goback.move(45, 850)
+        self.goback.setText("-15 min")
+        self.goback.resize(70, 50)
+        self.advance.move(115, 850)
+        self.advance.resize(70, 50)
+        self.advance.setText("+15 min")
 
         self.Veronica.clicked.connect(self.vclick)
         self.Jason.clicked.connect(self.jnclick)
@@ -120,7 +124,7 @@ class App(QWidget):
         # print(self.timestamp.value())
 
     def vclick(self):
-        self.namelabel.setText("Name: Veronica (guest)")
+        self.namelabel.setText("Name: Veronica (guest/VICTIM)")
 
     def jnclick(self):
         self.namelabel.setText("Name: Jason (guest)")
@@ -192,40 +196,40 @@ class App(QWidget):
             self.Veronica.move(self.set_location(info["device-id"]))
         elif info["guest-id"] == "Jason":
             self.Jason.setStyleSheet("background-color: blue")
-            self.Jason.move(self.set_location(info["device-id"]) + QPoint(-25, 5))
+            self.Jason.move(self.set_location(info["device-id"]) + QPoint(-15, 5))
         elif info["guest-id"] == "Thomas":
             self.Thomas.setStyleSheet("background-color: green")
-            self.Thomas.move(self.set_location(info["device-id"]) + QPoint(25, 10))
+            self.Thomas.move(self.set_location(info["device-id"]) + QPoint(15, 5))
         elif info["guest-id"] == "Eugene":
             self.Eugene.setStyleSheet("background-color: yellow")
             self.Eugene.move(self.set_location(info["device-id"]) + QPoint(0, 15))
         elif info["guest-id"] == "Salina":
             self.Salina.setStyleSheet("background-color: pink")
-            self.Salina.move(self.set_location(info["device-id"]) + QPoint(-25, 20))
+            self.Salina.move(self.set_location(info["device-id"]) + QPoint(-15, 10))
         elif info["guest-id"] == "Rob":
             self.Rob.setStyleSheet("background-color: orange")
-            self.Rob.move(self.set_location(info["device-id"]) + QPoint(25, 25))
+            self.Rob.move(self.set_location(info["device-id"]) + QPoint(16, 16))
         elif info["guest-id"] == "Kristina":
             self.Kristina.setStyleSheet("background-color: purple")
-            self.Kristina.move(self.set_location(info["device-id"]) + QPoint(0, 30))
+            self.Kristina.move(self.set_location(info["device-id"]) + QPoint(5, 20))
         elif info["guest-id"] == "Alok":
             self.Alok.setStyleSheet("background-color: brown")
-            self.Alok.move(self.set_location(info["device-id"]) + QPoint(-25, 35))
+            self.Alok.move(self.set_location(info["device-id"]) + QPoint(-15, 15))
         elif info["guest-id"] == "Marc-Andre":
             self.MarcAndre.setStyleSheet("background-color: magenta")
-            self.MarcAndre.move(self.set_location(info["device-id"]) + QPoint(25, 40))
+            self.MarcAndre.move(self.set_location(info["device-id"]) + QPoint(5, 0))
         elif info["guest-id"] == "n/a":
             self.na.setStyleSheet("background-color: gray")
-            self.na.move(self.set_location(info["device-id"]) + QPoint(0, 45))
+            self.na.move(self.set_location(info["device-id"]) + QPoint(0, 25))
         elif info["guest-id"] == "Dave":
             self.Dave.setStyleSheet("background-color: cyan")
-            self.Dave.move(self.set_location(info["device-id"]) + QPoint(-25, 50))
+            self.Dave.move(self.set_location(info["device-id"]) + QPoint(-25, 11))
         elif info["guest-id"] == "James":
             self.James.setStyleSheet("background-color: Maroon")
-            self.James.move(self.set_location(info["device-id"]) + QPoint(25, 55))
+            self.James.move(self.set_location(info["device-id"]) + QPoint(15, 15))
         elif info["guest-id"] == "Harrison":
             self.Harrison.setStyleSheet("background-color: black")
-            self.Harrison.move(self.set_location(info["device-id"]) + QPoint(0, 60))
+            self.Harrison.move(self.set_location(info["device-id"]) + QPoint(0, 30))
 
     def set_location(self, id_):
         if id_ == "ap1-1":
@@ -307,7 +311,7 @@ class App(QWidget):
             return QPoint(1191, 728)
 
         elif id_ == "248":
-            return QPoint(1146, 828)
+            return QPoint(1132, 828)
 
         elif id_ == "244":
             return QPoint(1013, 828)
@@ -327,7 +331,7 @@ class App(QWidget):
         elif id_ == "elevator":
             return QPoint(732, 200)
 
-        elif id == "150":
+        elif id_ == "150":
             return QPoint(1170, 240)
 
         elif id_ == "stairwell":
